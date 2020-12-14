@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!-- 数据库驱动:换成你本地的驱动包位置-->
+    <!--导入属性配置-->
+    <properties resource="application.properties"/>
+    <classPathEntry  location="C:\Users\USER\.m2\repository\mysql\mysql-connector-java\8.0.20\mysql-connector-java-8.0.20.jar"/>
+    <context id="DB2Tables"  targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true"/>
+            <property name="javaFileEncoding" value="UTF-8"/>
+        </commentGenerator>
+
+        <!--jdbc的数据库连接，直接写死也可以 -->
+        <jdbcConnection
+                driverClass="${spring.datasource.driver-class-name}"
+                connectionURL="${spring.datasource.url}"
+                userId="${spring.datasource.username}"
+                password="${spring.datasource.password}">
+                <property name="nullCatalogMeansCurrent" value="true"/>
+        </jdbcConnection>
+
+        <!-- 非必需，类型处理器，在数据库类型和java类型之间的转换控制-->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <!--数据库链接URL，用户名、密码 -->
+        <!--<jdbcConnection driverClass="com.mysql.cj.jdbc.Driver" connectionURL="jdbc:mysql://192.168.6.61:3306/ics_dev?serverTimezone=UTC" userId="root" password="123456">
+        </jdbcConnection>-->
+
+        <!-- 生成模型的包名和位置-->
+        <javaModelGenerator targetPackage="com.zyy.mowa.dao" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!-- 生成映射文件的包名和位置-->
+        <sqlMapGenerator targetPackage="resources.mapper" targetProject="src/main">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!-- 生成DAO的包名和位置-->
+        <javaClientGenerator type="ANNOTATEDMAPPER" targetPackage="com.zyy.mowa.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+        <!-- 要生成的表 tableName是数据库中的表名s或视图名 domainObjectName是实体类名-->
+   
+    <table tableName="ma_attachmentimage" domainObjectName="AttachmentImage" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    <table tableName="MA_User" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    <table tableName="MA_VerificationCodeAndRole" domainObjectName="VerificationCodeAndRole" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    <table tableName="MA_Role" domainObjectName="Role" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    <table tableName="MA_Device" domainObjectName="Device" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    <table tableName="MA_WorkGroup" domainObjectName="WorkGroup" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    <table tableName="MA_UserAndWorkGroup" domainObjectName="UserAndWorkGroup" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    <table tableName="MA_Fault" domainObjectName="Fault" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    <table tableName="MA_MaintenanceRecord" domainObjectName="MaintenanceRecord" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    <table tableName="MA_CodeTable" domainObjectName="CodeTable" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    <table tableName="MA_UrgencyDegree" domainObjectName="UrgencyDegree" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    <table tableName="MA_FaultType" domainObjectName="FaultType" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+
+    </context>
+</generatorConfiguration>
