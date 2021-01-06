@@ -5,8 +5,8 @@ package com.zyy.mowa.constant;
  * @date 2020/05/25
  */
 public enum ExceptionEnum {
-    UNKNOW_ERROR(-1, "未知错误"), USER_NOT_FIND(-101, "用户不存在"), UNAUTHORIZED(401, "Unauthorized"),
-    FORBIDDEN(403, "Forbidden"), NOT_FOUND(404, "Not Found"),;
+    UNKNOW_ERROR(-1, "未知错误"), USER_NOT_FIND(-101, "用户不存在"), UNAUTHORIZED(401, "Unauthorized"),UNLOGIN(402, "无token，请重新登录"),
+    FORBIDDEN(403, "Forbidden"), NOT_FOUND(404, "Not Found");
 
     private Integer code;
 

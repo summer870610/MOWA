@@ -29,7 +29,7 @@ public interface WorkGroupMapper {
         "IsPublic)",
         "values (#{id,jdbcType=INTEGER}, #{workgroupname,jdbcType=VARCHAR}, ",
         "#{invitecode,jdbcType=VARCHAR}, #{createuserid,jdbcType=INTEGER}, ",
-        "#{creattime,jdbcType=DATE}, #{wrokgroupdesc,jdbcType=VARCHAR}, ",
+        "#{creattime,jdbcType=TIMESTAMP}, #{wrokgroupdesc,jdbcType=VARCHAR}, ",
         "#{ispublic,jdbcType=BIT})"
     })
     @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
@@ -50,17 +50,19 @@ public interface WorkGroupMapper {
         @Result(column="WorkGroupName", property="workgroupname", jdbcType=JdbcType.VARCHAR),
         @Result(column="InviteCode", property="invitecode", jdbcType=JdbcType.VARCHAR),
         @Result(column="CreateUserId", property="createuserid", jdbcType=JdbcType.INTEGER),
-        @Result(column="CreatTime", property="creattime", jdbcType=JdbcType.DATE),
+        @Result(column="CreatTime", property="creattime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="WrokGroupDesc", property="wrokgroupdesc", jdbcType=JdbcType.VARCHAR),
         @Result(column="IsPublic", property="ispublic", jdbcType=JdbcType.BIT)
     })
     WorkGroup selectByPrimaryKey(Integer id);
     
-   @Select("select * from  ma_userandworkgroup  u LEFT JOIN ma_workgroup w ON w.Id=u.WorkGroupId  where u.UserId=#{userid}")
+   @Select("select w.* from  ma_userandworkgroup  u LEFT JOIN ma_workgroup w ON w.Id=u.WorkGroupId  where u.UserId=#{userid} OR w.IsPublic")
    List<WorkGroup>  selectByUserId(Integer userid);
    
    @Select("select * from  ma_workgroup w  where w.CreateUserId=#{userid}")
    List<WorkGroup>  selectByCreateUserId(Integer userid);
+   @Select("select * from ma_workgroup w where w.InviteCode=#{invitecode}")
+   WorkGroup  SelectByCode(String invitecode);
     
     @UpdateProvider(type=WorkGroupSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(WorkGroup record);
@@ -70,7 +72,7 @@ public interface WorkGroupMapper {
         "set WorkGroupName = #{workgroupname,jdbcType=VARCHAR},",
           "InviteCode = #{invitecode,jdbcType=VARCHAR},",
           "CreateUserId = #{createuserid,jdbcType=INTEGER},",
-          "CreatTime = #{creattime,jdbcType=DATE},",
+          "CreatTime = #{creattime,jdbcType=TIMESTAMP},",
           "WrokGroupDesc = #{wrokgroupdesc,jdbcType=VARCHAR},",
           "IsPublic = #{ispublic,jdbcType=BIT}",
         "where Id = #{id,jdbcType=INTEGER}"

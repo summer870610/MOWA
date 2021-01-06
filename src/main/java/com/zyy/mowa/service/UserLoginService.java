@@ -13,7 +13,7 @@ public interface UserLoginService {
 
 	UserDto loginFrist(WeChatLoginDto input) throws IOException;
 
-	User findUserById(Integer userid);
+	UserDto findUserById(Integer userid);
 
 	Role checkUser(WeChatLoginDto input);
 }

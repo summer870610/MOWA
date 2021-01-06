@@ -16,6 +16,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.zyy.mowa.dao.User;
+import com.zyy.mowa.dto.UserDto;
 import com.zyy.mowa.service.UserLoginService;
 
 
@@ -58,18 +59,18 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                     userId = JWT.decode(token).getAudience().get(0);
 
                 } catch (JWTDecodeException j) {
-                    throw new RuntimeException("401");
+                    throw new RuntimeException("Unauthorized");
                 }
-                User user = userService.findUserById(Integer.parseInt(userId));
+                UserDto user = userService.findUserById(Integer.parseInt(userId));
                 if (user == null) {
                     throw new RuntimeException("用户不存在，请重新登录");
                 }
                 // 验证 token
-                JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(user.getNickname())).build();
+                JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(user.getUsername())).build();
                 try {
                     jwtVerifier.verify(token);
                 } catch (JWTVerificationException e) {
-                    throw new RuntimeException("401");
+                    throw new RuntimeException("Unauthorized");
                 }
                 return true;
             }

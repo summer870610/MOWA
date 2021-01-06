@@ -1,53 +1,27 @@
 package com.zyy.mowa.dao;
 
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class AttachmentImage {
-    private Integer id;
+	private Integer id;
 
-    private String imageurl;
+	private String imageurl;
 
-    private String imagesize;
+	private String imagesize;
 
-    private String pictureformat;
+	private String pictureformat;
 
-    private Integer faultid;
+	private Integer faultid;
+	private Integer createuserid;
+	private Date createtime;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getImageurl() {
-        return imageurl;
-    }
-
-    public void setImageurl(String imageurl) {
-        this.imageurl = imageurl == null ? null : imageurl.trim();
-    }
-
-    public String getImagesize() {
-        return imagesize;
-    }
-
-    public void setImagesize(String imagesize) {
-        this.imagesize = imagesize == null ? null : imagesize.trim();
-    }
-
-    public String getPictureformat() {
-        return pictureformat;
-    }
-
-    public void setPictureformat(String pictureformat) {
-        this.pictureformat = pictureformat == null ? null : pictureformat.trim();
-    }
-
-    public Integer getFaultid() {
-        return faultid;
-    }
-
-    public void setFaultid(Integer faultid) {
-        this.faultid = faultid;
-    }
 }

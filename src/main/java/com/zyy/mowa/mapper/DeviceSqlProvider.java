@@ -103,7 +103,7 @@ public class DeviceSqlProvider {
         }
         
         if (record.getDatakey() != null) {
-        	condition.append(" and DataKey = #{datakey,jdbcType=VARCHAR}");
+        	condition.append(" and DataKey like '%"+record.getDatakey()+"%'");
         }
         
         if (record.getDatadescription() != null) {

@@ -27,7 +27,7 @@ public interface MaintenanceRecordMapper {
         "RecordDesc, CreateTime, ",
         "CreateUser, UpdateStatus)",
         "values (#{id,jdbcType=INTEGER}, #{faultid,jdbcType=INTEGER}, ",
-        "#{recorddesc,jdbcType=VARCHAR}, #{createtime,jdbcType=DATE}, ",
+        "#{recorddesc,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, ",
         "#{createuser,jdbcType=INTEGER}, #{updatestatus,jdbcType=VARCHAR})"
     })
     int insert(MaintenanceRecord record);
@@ -45,7 +45,7 @@ public interface MaintenanceRecordMapper {
         @Result(column="Id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="FaultId", property="faultid", jdbcType=JdbcType.INTEGER),
         @Result(column="RecordDesc", property="recorddesc", jdbcType=JdbcType.VARCHAR),
-        @Result(column="CreateTime", property="createtime", jdbcType=JdbcType.DATE),
+        @Result(column="CreateTime", property="createtime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="CreateUser", property="createuser", jdbcType=JdbcType.INTEGER),
         @Result(column="UpdateStatus", property="updatestatus", jdbcType=JdbcType.VARCHAR)
     })
@@ -61,7 +61,7 @@ public interface MaintenanceRecordMapper {
         "update ma_maintenancerecord",
         "set FaultId = #{faultid,jdbcType=INTEGER},",
           "RecordDesc = #{recorddesc,jdbcType=VARCHAR},",
-          "CreateTime = #{createtime,jdbcType=DATE},",
+          "CreateTime = #{createtime,jdbcType=TIMESTAMP},",
           "CreateUser = #{createuser,jdbcType=INTEGER},",
           "UpdateStatus = #{updatestatus,jdbcType=VARCHAR}",
         "where Id = #{id,jdbcType=INTEGER}"

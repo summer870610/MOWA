@@ -1,6 +1,11 @@
 package com.zyy.mowa.mapper;
 
+import com.fasterxml.jackson.datatype.jsr310.deser.InstantDeserializer.FromDecimalArguments;
+import com.zyy.mowa.dao.User;
 import com.zyy.mowa.dao.UserAndWorkGroup;
+
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
@@ -26,9 +31,9 @@ public interface UserAndWorkGroupMapper {
     int delete(UserAndWorkGroup record);
 
     @Insert({
-        "insert into ma_userandworkgroup (Id, UserId, ",
+        "insert into ma_userandworkgroup (UserId, ",
         "WorkGroupId)",
-        "values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, ",
+        "values ( #{userid,jdbcType=INTEGER}, ",
         "#{workgroupid,jdbcType=INTEGER})"
     })
     @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
@@ -50,6 +55,8 @@ public interface UserAndWorkGroupMapper {
         @Result(column="WorkGroupId", property="workgroupid", jdbcType=JdbcType.INTEGER)
     })
     UserAndWorkGroup selectByPrimaryKey(Integer id);
+    @Select("select u.* from ma_userandworkgroup uw LEFT JOIN ma_user u ON uw.UserId=u.Id  where uw.WorkGroupId= #{workgroupid,jdbcType=INTEGER}")
+   List<User>  SelectUserByWorkGroup(int workgroupid);
 
     @UpdateProvider(type=UserAndWorkGroupSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(UserAndWorkGroup record);

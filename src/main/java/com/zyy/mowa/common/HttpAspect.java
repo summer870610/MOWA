@@ -31,7 +31,7 @@ public class HttpAspect {
     @Autowired
     private ExceptionHandle exceptionHandle;
 
-    @Pointcut("execution(public * com.zyy.diagnosis.controller.*.*(..))")
+    @Pointcut("execution(public * com.zyy.mowa.controller.*.*(..))")
     public void log() {
 
     }

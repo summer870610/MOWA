@@ -12,7 +12,7 @@
     <property resource="application.properties"/>
     <property resource="application-${app.env:-dev}.properties"/>
 
-    <property name="app.name" value="${app.name:-diagnosis}"/>
+    <property name="app.name" value="${app.name:-mowa}"/>
     <property name="app.env" value="${app.env:-dev}"/>
 
     <!-- 日志记录级别 -->

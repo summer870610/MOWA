@@ -26,14 +26,14 @@ public class ExceptionHandle {
      * @return
      */
     @ExceptionHandler(value = Exception.class)
-    @ResponseBody
+    @ResponseBody 
     public Result exceptionGet(Exception e) {
         if (e instanceof DescribeException) {
             DescribeException myException = (DescribeException)e;
             return ResultUtil.error(myException.getCode(), myException.getMessage());
         }
-
-        LOGGER.error("【系统异常】:{}", e);
+        LOGGER.error("【系统异常】:", e);
+   
         return ResultUtil.error(ExceptionEnum.UNKNOW_ERROR);
     }
 }

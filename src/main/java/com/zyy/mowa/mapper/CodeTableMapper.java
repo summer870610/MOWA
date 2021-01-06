@@ -1,12 +1,16 @@
 package com.zyy.mowa.mapper;
 
 import com.zyy.mowa.dao.CodeTable;
+
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.type.JdbcType;
@@ -58,4 +62,7 @@ public interface CodeTableMapper {
         "where Id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(CodeTable record);
+    
+    @SelectProvider(type=CodeTableSqlProvider.class, method="SelectByKeySelective")
+  List<CodeTable>  SelectByKeySelective(CodeTable record);
 }

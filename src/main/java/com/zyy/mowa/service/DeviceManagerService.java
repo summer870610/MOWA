@@ -13,4 +13,5 @@ public interface DeviceManagerService {
 	 int deleteDevice(int id);
 	 
 	 List<Device> getDevicelist(Device record);
+	 List<Device> getDevicelistForSearch(Device record);
 }

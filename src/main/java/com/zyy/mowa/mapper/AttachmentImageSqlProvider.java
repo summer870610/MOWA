@@ -28,6 +28,9 @@ public class AttachmentImageSqlProvider {
         if (record.getFaultid() != null) {
             sql.VALUES("FaultId", "#{faultid,jdbcType=INTEGER}");
         }
+        if (record.getCreatetime() != null) {
+            sql.VALUES("CreateTime", "#{createtime,jdbcType=TIMESTAMP}");
+        }
         
         return sql.toString();
     }

@@ -1,9 +1,13 @@
 package com.zyy.mowa.mapper;
 
 import com.zyy.mowa.dao.AttachmentImage;
+
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
@@ -21,14 +25,16 @@ public interface AttachmentImageMapper {
     @Insert({
         "insert into ma_attachmentimage (Id, ImageUrl, ",
         "ImageSize, PictureFormat, ",
-        "FaultId)",
+        "FaultId,CreateTime,CreateUserId)",
         "values (#{id,jdbcType=INTEGER}, #{imageurl,jdbcType=VARCHAR}, ",
         "#{imagesize,jdbcType=VARCHAR}, #{pictureformat,jdbcType=VARCHAR}, ",
-        "#{faultid,jdbcType=INTEGER})"
+        "#{faultid,jdbcType=INTEGER},#{createtime,jdbcType=TIMESTAMP},#{createuserid,jdbcType=INTEGER})"
     })
+    @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     int insert(AttachmentImage record);
 
     @InsertProvider(type=AttachmentImageSqlProvider.class, method="insertSelective")
+    @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     int insertSelective(AttachmentImage record);
 
     @Select({
@@ -45,6 +51,13 @@ public interface AttachmentImageMapper {
         @Result(column="FaultId", property="faultid", jdbcType=JdbcType.INTEGER)
     })
     AttachmentImage selectByPrimaryKey(Integer id);
+    @Select({
+        "select",
+        "Id, ImageUrl, ImageSize, PictureFormat, FaultId",
+        "from ma_attachmentimage",
+        "where FaultId = #{faultId,jdbcType=INTEGER}"
+    })
+    List<AttachmentImage> selectByFaultId(Integer faultId);
 
     @UpdateProvider(type=AttachmentImageSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(AttachmentImage record);

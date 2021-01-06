@@ -1,6 +1,15 @@
 package com.zyy.mowa.dao;
 
+import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+
+import org.apache.commons.codec.binary.Base64;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class User {
     private Integer id;
@@ -16,12 +25,14 @@ public class User {
     private String openid;
 
     private String sessionkey;
-
+  
     private Date createtime;
-
+    //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date latestlogintime;
 
     private Integer roleid;
+    
+    private boolean isenabled;
 
     public Integer getId() {
         return id;
@@ -32,7 +43,8 @@ public class User {
     }
 
     public String getNickname() {
-        return nickname;
+    	
+    		return this.nickname;
     }
 
     public void setNickname(String nickname) {
@@ -84,15 +96,32 @@ public class User {
     }
 
     public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
+		/*
+		 * SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		 * 
+		 * try { this.createtime = df.parse(df.format(createtime)); } catch
+		 * (ParseException e) { // TODO Auto-generated catch block e.printStackTrace();
+		 * }
+		 */
+    	
+    	this.createtime = createtime;
     }
 
     public Date getLatestlogintime() {
+    	
         return latestlogintime;
     }
 
     public void setLatestlogintime(Date latestlogintime) {
-        this.latestlogintime = latestlogintime;
+		/*
+		 * SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		 * 
+		 * try { this.latestlogintime= df.parse(df.format(latestlogintime)); } catch
+		 * (ParseException e) { // TODO Auto-generated catch block e.printStackTrace();
+		 * }
+		 */
+    	
+    	this.latestlogintime= latestlogintime;
     }
 
     public Integer getRoleid() {
@@ -101,5 +130,13 @@ public class User {
 
     public void setRoleid(Integer roleid) {
         this.roleid = roleid;
+    }
+    
+    public boolean getIsEnabled() {
+        return isenabled;
+    }
+
+    public void setIsEnabled(Boolean isenabled) {
+        this.isenabled = isenabled;
     }
 }

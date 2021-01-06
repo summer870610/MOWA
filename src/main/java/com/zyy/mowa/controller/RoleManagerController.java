@@ -14,6 +14,7 @@ import com.zyy.mowa.dao.Role;
 import com.zyy.mowa.dao.VerificationCodeAndRole;
 import com.zyy.mowa.dto.Result;
 import com.zyy.mowa.service.RoleManagerService;
+import com.zyy.mowa.utils.JwtUtils.UserLoginToken;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,12 +26,13 @@ import io.swagger.annotations.ApiOperation;
 public class RoleManagerController {
 	@Autowired
 	private RoleManagerService roleManagerService;
-	
+
 	@ApiOperation(value = "生成管理员验证码")
 	@PostMapping("/CreateWorkGroupAdmin")
 	public Result<String>  CreateWorkGroupAdmin(@RequestBody VerificationCodeAndRole input) {
 		return new Result<String>(roleManagerService.CreateWorkGroupAdmin(input));
 	}
+	
 	@ApiOperation(value = "获取管理员验证码列表")
 	@PostMapping("/getCodeAndRoles")
 	public Result<List<VerificationCodeAndRole>> getCodeAndRoles(@RequestBody VerificationCodeAndRole input){

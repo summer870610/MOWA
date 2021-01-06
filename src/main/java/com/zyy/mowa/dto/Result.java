@@ -21,6 +21,8 @@ public class Result<T> implements Serializable {
 
     // 请求成功返回码为：0000
     private static final Integer successCode = 0;
+    // 检验非法
+    private static final Integer riskCode = 87014;
     // 返回数据
     private T data;
     // 返回码

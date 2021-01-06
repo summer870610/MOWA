@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
@@ -31,13 +32,16 @@ public interface FaultMapper {
         "values (#{id,jdbcType=INTEGER}, #{urgencydegree,jdbcType=VARCHAR}, ",
         "#{faulttype,jdbcType=VARCHAR}, #{devicecode,jdbcType=VARCHAR}, ",
         "#{faultdesc,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, ",
-        "#{createtime,jdbcType=DATE}, #{finishtime,jdbcType=DATE}, ",
+        "#{createtime,jdbcType=TIMESTAMP}, #{finishtime,jdbcType=VARCHAR}, ",
         "#{createuserid,jdbcType=INTEGER}, #{workgroupid,jdbcType=INTEGER})"
     })
+    @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     int insert(Fault record);
 
     @InsertProvider(type=FaultSqlProvider.class, method="insertSelective")
+    @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     int insertSelective(Fault record);
+    
 
     @Select({
         "select",
@@ -53,8 +57,8 @@ public interface FaultMapper {
         @Result(column="DeviceCode", property="devicecode", jdbcType=JdbcType.VARCHAR),
         @Result(column="FaultDesc", property="faultdesc", jdbcType=JdbcType.VARCHAR),
         @Result(column="Status", property="status", jdbcType=JdbcType.VARCHAR),
-        @Result(column="CreateTime", property="createtime", jdbcType=JdbcType.DATE),
-        @Result(column="FinishTime", property="finishtime", jdbcType=JdbcType.DATE),
+        @Result(column="CreateTime", property="createtime", jdbcType=JdbcType.VARCHAR),
+        @Result(column="FinishTime", property="finishtime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="CreateUserId", property="createuserid", jdbcType=JdbcType.INTEGER),
         @Result(column="WorkGroupId", property="workgroupid", jdbcType=JdbcType.INTEGER)
     })
@@ -73,8 +77,8 @@ public interface FaultMapper {
           "DeviceCode = #{devicecode,jdbcType=VARCHAR},",
           "FaultDesc = #{faultdesc,jdbcType=VARCHAR},",
           "Status = #{status,jdbcType=VARCHAR},",
-          "CreateTime = #{createtime,jdbcType=DATE},",
-          "FinishTime = #{finishtime,jdbcType=DATE},",
+          "CreateTime = #{createtime,jdbcType=VARCHAR},",
+          "FinishTime = #{finishtime,jdbcType=TIMESTAMP},",
           "CreateUserId = #{createuserid,jdbcType=INTEGER},",
           "WorkGroupId = #{workgroupid,jdbcType=INTEGER}",
         "where Id = #{id,jdbcType=INTEGER}"

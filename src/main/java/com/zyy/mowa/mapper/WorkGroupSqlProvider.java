@@ -26,7 +26,7 @@ public class WorkGroupSqlProvider {
         }
         
         if (record.getCreattime() != null) {
-            sql.VALUES("CreatTime", "#{creattime,jdbcType=DATE}");
+            sql.VALUES("CreatTime", "#{creattime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getWrokgroupdesc() != null) {
@@ -57,7 +57,7 @@ public class WorkGroupSqlProvider {
         }
         
         if (record.getCreattime() != null) {
-            sql.SET("CreatTime = #{creattime,jdbcType=DATE}");
+            sql.SET("CreatTime = #{creattime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getWrokgroupdesc() != null) {

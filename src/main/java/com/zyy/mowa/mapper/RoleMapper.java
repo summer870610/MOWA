@@ -23,9 +23,9 @@ public interface RoleMapper {
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into ma_role (Id, RoleName, ",
+        "insert into ma_role (RoleName, ",
         "IsEnable)",
-        "values (#{id,jdbcType=INTEGER}, #{rolename,jdbcType=VARCHAR}, ",
+        "values (#{rolename,jdbcType=VARCHAR}, ",
         "#{isenable,jdbcType=BIT})"
     })
     int insert(Role record);

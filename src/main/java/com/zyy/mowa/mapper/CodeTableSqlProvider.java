@@ -56,4 +56,30 @@ public class CodeTableSqlProvider {
         
         return sql.toString();
     }
+    public String SelectByKeySelective(CodeTable record) {
+        SQL sql = new SQL();
+        sql.SELECT("*");
+        sql.FROM("ma_codetable");
+        StringBuilder conditions=new StringBuilder();
+        conditions.append(" 1=1");
+        if (record.getDatacode() != null) {
+        	conditions.append(" and DataCode = #{datacode,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getDataname() != null) {
+        	conditions.append(" and DataName = #{dataname,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getDatakey() != null) {
+        	conditions.append(" and DataKey = #{datakey,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getDatakeyname() != null) {
+        	conditions.append("  and DataKeyName = #{datakeyname,jdbcType=VARCHAR}");
+        }
+        
+        sql.WHERE(conditions.toString());
+        
+        return sql.toString();
+    }
 }

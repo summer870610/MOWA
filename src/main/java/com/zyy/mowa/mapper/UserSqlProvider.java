@@ -38,16 +38,19 @@ public class UserSqlProvider {
         }
         
         if (record.getCreatetime() != null) {
-            sql.VALUES("CreateTime", "#{createtime,jdbcType=DATE}");
+            sql.VALUES("CreateTime", "#{createtime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getLatestlogintime() != null) {
-            sql.VALUES("LatestLoginTime", "#{latestlogintime,jdbcType=DATE}");
+            sql.VALUES("LatestLoginTime", "#{latestlogintime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getRoleid() != null) {
             sql.VALUES("RoleId", "#{roleid,jdbcType=INTEGER}");
         }
+      
+        	  sql.VALUES("IsEnabled", "#{isenabled,jdbcType=BOOLEAN}");
+       
         
         return sql.toString();
     }
@@ -81,17 +84,18 @@ public class UserSqlProvider {
         }
         
         if (record.getCreatetime() != null) {
-            sql.SET("CreateTime = #{createtime,jdbcType=DATE}");
+            sql.SET("CreateTime = #{createtime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getLatestlogintime() != null) {
-            sql.SET("LatestLoginTime = #{latestlogintime,jdbcType=DATE}");
+            sql.SET("LatestLoginTime = #{latestlogintime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getRoleid() != null) {
             sql.SET("RoleId = #{roleid,jdbcType=INTEGER}");
         }
-        
+       
+        sql.SET("IsEnabled = #{isenabled,jdbcType=BOOLEAN}");
         sql.WHERE("Id = #{id,jdbcType=INTEGER}");
         
         return sql.toString();
@@ -116,19 +120,17 @@ public class UserSqlProvider {
         if (record.getAvatarurl() != null) {
             sql.SET("AvatarUrl = #{avatarurl,jdbcType=VARCHAR}");
         }
-        
-      
-        
+
         if (record.getSessionkey() != null) {
             sql.SET("SessionKey = #{sessionkey,jdbcType=VARCHAR}");
         }
         
         if (record.getCreatetime() != null) {
-            sql.SET("CreateTime = #{createtime,jdbcType=DATE}");
+            sql.SET("CreateTime = #{createtime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getLatestlogintime() != null) {
-            sql.SET("LatestLoginTime = #{latestlogintime,jdbcType=DATE}");
+            sql.SET("LatestLoginTime = #{latestlogintime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getRoleid() != null) {
@@ -149,7 +151,10 @@ public class UserSqlProvider {
         if (record.getId() != null) {
         	conditions.append(" and Id = #{id,jdbcType=INTEGER}");
         }
-        
+        if (record.getOpenid() != null) {
+        	conditions.append( " and OpenId = #{openid,jdbcType=VARCHAR}");
+        }
+       
         if (record.getNickname() != null) {
         	conditions.append(" and NickName = #{nickname,jdbcType=VARCHAR}");
         }
@@ -172,11 +177,11 @@ public class UserSqlProvider {
         }
         
         if (record.getCreatetime() != null) {
-        	conditions.append(" and CreateTime = #{createtime,jdbcType=DATE}");
+        	conditions.append(" and CreateTime = #{createtime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getLatestlogintime() != null) {
-        	conditions.append(" and LatestLoginTime = #{latestlogintime,jdbcType=DATE}");
+        	conditions.append(" and LatestLoginTime = #{latestlogintime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getRoleid() != null) {

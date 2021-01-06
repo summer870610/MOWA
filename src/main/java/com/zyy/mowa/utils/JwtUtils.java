@@ -9,6 +9,7 @@ import java.util.Date;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.zyy.mowa.dao.TUser;
+import com.zyy.mowa.dao.User;
 import com.zyy.mowa.dto.UserDto;
 
 /**
@@ -27,6 +28,9 @@ public class JwtUtils {
      */
     private static final String TOKEN_SECRET = "joijsdfjlsjfljfljl5135313135";
 
+    public static final String WX_APPID="wxa4f68ec30af1f7dc";
+    public static final String WX_SECRET="68aa3c8bc260f0e9cbf30b381d81a73d";
+    public static final String GRANT_TYPE ="client_credential";
     /**
      * 生成签名,15分钟后过期
      *
@@ -82,11 +86,11 @@ public class JwtUtils {
      * @param user
      * @return
      */
-    public String getToken(TUser user) {
+    public static  String getToken(User user) {
         Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
         String token = "";
-       token = JWT.create().withAudience(user.getUsername()).withExpiresAt(date)
-           .sign(Algorithm.HMAC256(user.getNickname()));
+       token = JWT.create().withAudience(user.getId().toString()).withExpiresAt(date)
+           .sign(Algorithm.HMAC256(user.getName()));
         return token;
     }
 }

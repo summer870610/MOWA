@@ -2,6 +2,7 @@ package com.zyy.mowa.controller;
 
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.remoting.support.RemoteInvocationResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,21 +25,18 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("api/UserManager")
 @Api(tags = "用户管理")
 public class UserManagerController {
+	@Autowired
 	private UserLoginService userLoginService;
 	@ApiOperation(value = "通过用户Code查询用户")
 	@PostMapping("/loginByCode")
 	public Result<UserDto> loginByCode(@RequestBody WeChatLoginDto input) throws IOException {
 		return new Result<UserDto>(userLoginService.loginByCode(input));
 	}
-	@ApiOperation(value = "注册用户")
-	@PostMapping("/loginFrist")
-	public Result<UserDto> loginFrist(@RequestBody WeChatLoginDto input) throws IOException {
-		return new Result<UserDto> (userLoginService.loginFrist(input));
-	}
+	
 	@ApiOperation(value = "通过用户Id获取用户")
 	@PostMapping("/findUserById")
-	public Result<User> findUserById(@RequestBody Integer userid) {
-		return new Result<User>(userLoginService.findUserById(userid));
+	public Result<UserDto> findUserById(@RequestBody Integer userid) {
+		return new Result<UserDto>(userLoginService.findUserById(userid));
 	}
 	@ApiOperation(value = "验证管理员身份")
 	@PostMapping("/checkUser")

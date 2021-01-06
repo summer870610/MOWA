@@ -1,6 +1,7 @@
 package com.zyy.mowa.mapper;
 
 import com.zyy.mowa.dao.User;
+import com.zyy.mowa.dto.UserDto;
 
 import java.util.List;
 
@@ -32,8 +33,9 @@ public interface UserMapper {
         "values (#{id,jdbcType=INTEGER}, #{nickname,jdbcType=VARCHAR}, ",
         "#{name,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, ",
         "#{avatarurl,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR}, ",
-        "#{sessionkey,jdbcType=VARCHAR}, #{createtime,jdbcType=DATE}, ",
-        "#{latestlogintime,jdbcType=DATE}, #{roleid,jdbcType=INTEGER})"
+        "#{sessionkey,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, ",
+        "#{isenabled,jdbcType=VARCHAR}, #{isenabled,jdbcType=BOOLEAN}, ",
+        "#{latestlogintime,jdbcType=TIMESTAMP}, #{roleid,jdbcType=INTEGER})"
     })
     @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     int insert(User record);
@@ -43,25 +45,19 @@ public interface UserMapper {
     int insertSelective(User record);
 
     @Select({
-        "select",
-        "Id, NickName, Name, Telephone, AvatarUrl, OpenId, SessionKey, CreateTime, LatestLoginTime, ",
-        "RoleId",
-        "from ma_user",
-        "where Id = #{id,jdbcType=INTEGER}"
+        "SELECT  u.Id,u.Name,u.NickName,u.AvatarUrl,u.SessionKey,u.Telephone,u.IsEnabled,r.RoleName,v.Company,v.Department, v.Position FROM ma_user u LEFT JOIN  ma_role r ON u.RoleId=r.Id LEFT JOIN ma_verificationcodeandrole v ON u.RoleId=v.RoleId ",
+        "where u.Id = #{id,jdbcType=INTEGER}"
     })
     @Results({
         @Result(column="Id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="NickName", property="nickname", jdbcType=JdbcType.VARCHAR),
-        @Result(column="Name", property="name", jdbcType=JdbcType.VARCHAR),
+        @Result(column="Name", property="username", jdbcType=JdbcType.VARCHAR),
         @Result(column="Telephone", property="telephone", jdbcType=JdbcType.VARCHAR),
         @Result(column="AvatarUrl", property="avatarurl", jdbcType=JdbcType.VARCHAR),
-        @Result(column="OpenId", property="openid", jdbcType=JdbcType.VARCHAR),
-        @Result(column="SessionKey", property="sessionkey", jdbcType=JdbcType.VARCHAR),
-        @Result(column="CreateTime", property="createtime", jdbcType=JdbcType.DATE),
-        @Result(column="LatestLoginTime", property="latestlogintime", jdbcType=JdbcType.DATE),
-        @Result(column="RoleId", property="roleid", jdbcType=JdbcType.INTEGER)
+        @Result(column="AvatarUrl", property="avatarurl", jdbcType=JdbcType.VARCHAR),
+        @Result(column="RoleName", property="rolename", jdbcType=JdbcType.INTEGER)
     })
-    User selectByPrimaryKey(Integer id);
+    UserDto selectByPrimaryKey(Integer id);
 
     @UpdateProvider(type=UserSqlProvider.class, method="updateByPrimaryKeySelective")
     int updateByPrimaryKeySelective(User record);
@@ -74,8 +70,8 @@ public interface UserMapper {
           "AvatarUrl = #{avatarurl,jdbcType=VARCHAR},",
           "OpenId = #{openid,jdbcType=VARCHAR},",
           "SessionKey = #{sessionkey,jdbcType=VARCHAR},",
-          "CreateTime = #{createtime,jdbcType=DATE},",
-          "LatestLoginTime = #{latestlogintime,jdbcType=DATE},",
+          "CreateTime = #{createtime,jdbcType=TIMESTAMP},",
+          "LatestLoginTime = #{latestlogintime,jdbcType=TIMESTAMP},",
           "RoleId = #{roleid,jdbcType=INTEGER}",
         "where Id = #{id,jdbcType=INTEGER}"
     })

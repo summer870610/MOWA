@@ -20,27 +20,16 @@ public class UserDto {
 
     private String username;
 
-    private String sex;
-
     private String telephone;
-
-    private String email;
-
-    private String departmentcode;
-
-    private String status;
-
-    private String remark;
-
-    private Date createtime;
-
-    private Boolean isdeleteflag;
-
-    private String position;
-
     private String nickname;
 
     private String avatarurl;
     private String sessionkey;
     private String rolename;
+    private boolean isenabled;
+    private String position;
+
+    private String department;
+
+    private String company;
 }

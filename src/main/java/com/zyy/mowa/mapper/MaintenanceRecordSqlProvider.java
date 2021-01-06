@@ -22,7 +22,7 @@ public class MaintenanceRecordSqlProvider {
         }
         
         if (record.getCreatetime() != null) {
-            sql.VALUES("CreateTime", "#{createtime,jdbcType=DATE}");
+            sql.VALUES("CreateTime", "#{createtime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getCreateuser() != null) {
@@ -49,7 +49,7 @@ public class MaintenanceRecordSqlProvider {
         }
         
         if (record.getCreatetime() != null) {
-            sql.SET("CreateTime = #{createtime,jdbcType=DATE}");
+            sql.SET("CreateTime = #{createtime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getCreateuser() != null) {
@@ -66,36 +66,36 @@ public class MaintenanceRecordSqlProvider {
     }
     
     public String selectSelective(MaintenanceRecord record) {
-        SQL sql = new SQL();
-        sql.SELECT("*");
-        sql.FROM("ma_maintenancerecord");
+   
         StringBuilder condition=new StringBuilder();
-        condition.append("1=1");
+        condition.append("SELECT m.*,u.Name as username,s.DataName as statusdec from ma_maintenancerecord m INNER JOIN ma_user u ON u.Id=m.CreateUser"
+        		+ " INNER JOIN (select d.DataCode,d.DataName from ma_codetable d WHERE d.DataKey='FaultStatus') s ON s.DataCode=m.UpdateStatus");
+        condition.append(" where 1=1");
         if (record.getFaultid() != null) {
-        	condition.append(" and FaultId = #{faultid,jdbcType=INTEGER}");
+        	condition.append(" and m.FaultId = #{faultid,jdbcType=INTEGER}");
         }
         
         if (record.getRecorddesc() != null) {
-        	condition.append(" and RecordDesc = #{recorddesc,jdbcType=VARCHAR}");
+        	condition.append(" and m.RecordDesc = #{recorddesc,jdbcType=VARCHAR}");
         }
         
         if (record.getCreatetime() != null) {
-        	condition.append(" and CreateTime = #{createtime,jdbcType=DATE}");
+        	condition.append(" and m.CreateTime = #{createtime,jdbcType=TIMESTAMP}");
         }
         
         if (record.getCreateuser() != null) {
-        	condition.append("  and CreateUser = #{createuser,jdbcType=INTEGER}");
+        	condition.append("  and m.CreateUser = #{createuser,jdbcType=INTEGER}");
         }
         
         if (record.getUpdatestatus() != null) {
-        	condition.append(" and UpdateStatus = #{updatestatus,jdbcType=VARCHAR}");
+        	condition.append(" and m.UpdateStatus = #{updatestatus,jdbcType=VARCHAR}");
         }
         if (record.getId() != null) {
-        	condition.append(" and Id = #{id,jdbcType=INTEGER}");
+        	condition.append(" and m.Id = #{id,jdbcType=INTEGER}");
         }
         
-        sql.WHERE(condition.toString());
         
-        return sql.toString();
+        
+        return condition.toString();
     }
 }
